@@ -1,0 +1,9 @@
+<h1>List (list.html)</h1>
+<hr/>
+<div>
+	<ul>
+		<li ng-repeat="file in files">
+			<a ui-sref="view({filename:file.filename})">{{file.filename}}</a>
+		</li>
+	</ul>
+</div>

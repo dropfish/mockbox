@@ -8,10 +8,14 @@
 </head>
 
 <body>
-	<div ui-view></div>
+	<div>
+    <ui-view>
+      Main page (index.html)
+      <img src="static/animations/loading.gif" />
+    </ui-view>
+  </div>
     <!-- We'll also add some navigation: -->
-    <a ui-sref="state1">State 1</a>
-    <a ui-sref="state2">State 2</a>
+    <a ui-sref="list">List</a>
 </body>
 
 </html>

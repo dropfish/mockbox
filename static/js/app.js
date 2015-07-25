@@ -1,32 +1,60 @@
 var myApp = angular.module('myApp', ['ui.router']);
 
 myApp.config(function($stateProvider, $urlRouterProvider) {
-  //
-  // For any unmatched url, redirect to /state1
-  $urlRouterProvider.otherwise("/state1");
-  //
-  // Now set up the states
+  $urlRouterProvider.otherwise("/list");
   $stateProvider
-    .state('state1', {
-      url: "/state1",
-      templateUrl: "static/state1.html"
-    })
-    .state('state1.list', {
+    .state('list', {
       url: "/list",
-      templateUrl: "static/state1.list.html",
-      controller: function($scope) {
-        $scope.items = ["A", "List", "Of", "Items"];
+      resolve: {
+        fileList: function(File) {
+          return File.getList();
+        }
+      },
+      templateUrl: "static/list.html",
+      controller: function($scope, fileList) {
+        $scope.files = fileList;
       }
     })
-    .state('state2', {
-      url: "/state2",
-      templateUrl: "static/state2.html"
-    })
-    .state('state2.list', {
-      url: "/list",
-      templateUrl: "static/state2.list.html",
-      controller: function($scope) {
-        $scope.things = ["A", "Set", "Of", "Things"];
+    .state('view', {
+      url: "/view/:filename",
+      templateUrl: "static/view.html",
+      controller: function(File, $scope, $stateParams) {
+        $scope.filename = $stateParams.filename;
+        $scope.file = File.getByName($scope.filename);
       }
     });
+});
+
+myApp.factory("File", function($http, $timeout, $q) {
+  var defer, fileList, fileToReturn, fileIndex;
+  function getList() {
+    defer = $q.defer()
+
+    $timeout(function() {
+      defer.resolve($http.get("static/data/files.json"));
+    }, Math.random()*1000);
+    return defer.promise;
+  }
+  return {
+    getByName: function(filename) {
+      var defer = $q.defer()
+      getList().then(function(results) {
+        fileList = results.data.files;
+        fileToReturn = undefined;
+        for (fileIndex = 0; fileIndex < fileList.length; fileIndex++) {
+          if (fileList[fileIndex].filename == filename) {
+            defer.resolve(fileList[fileIndex]);
+          }
+        }
+      });
+      return defer.promise;
+    },
+    getList: function() {
+      var defer = $q.defer()
+      getList().then(function(results) {
+        defer.resolve(results.data.files);
+      });
+      return defer.promise;
+    }
+  };
 });
