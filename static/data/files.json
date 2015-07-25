@@ -1,0 +1,19 @@
+{
+  "files": [
+    {
+      "filename": "poem.txt",
+      "is_image": false,
+      "text": "hello"
+    },
+    {
+      "filename": "puppy.png",
+      "is_image": true,
+      "text": ""
+    },
+    {
+      "filename": "turtle.png",
+      "is_image": true,
+      "text": ""
+    }
+  ]
+}
