@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ui.router']);
+var myApp = angular.module('myApp', ['ui.router', 'ngSanitize']);
 
 var DELAY = 500;
 
@@ -48,7 +48,8 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: "static/view.html",
       params: {
         test: null,
-        metadata: null
+        metadata: null,
+        metadataList: null
       },
       resolve: {
         metadata: function($stateParams, Metaserver) {
@@ -56,52 +57,91 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
           console.log("RESOLVE stateParams: " + JSON.stringify($stateParams));
           if ($stateParams.metadata) { // user clicked on ui-sref
             console.log("already in stateParams");
-            return $stateParams.metadata
+            return $stateParams.metadata;
           }
           else { // user typed URL into address bar, need to fetch metadata
             console.log("NOT already in stateParams, calling with filename = " + $stateParams.filename);
             return Metaserver.getByName($stateParams.filename);
           }
+        },
+        metadataList: function($stateParams, Metaserver) {
+          console.log("metadataList resolve");
+          console.log("RESOLVE stateParams: " + JSON.stringify($stateParams));
+          if ($stateParams.metadataList) { // user clicked on ui-sref
+            console.log("already in stateParams");
+            return $stateParams.metadataList;
+          }
+          else { // user typed URL into address bar, need to fetch metadataList
+            console.log("getting list...")
+            return Metaserver.getList();
+          }
         }
       },
-      controller: function($scope, $stateParams, Blockserver, metadata) {
-        var blockserverKey;
-        $scope.filename = $stateParams.filename;
-        console.log("stateParams: " + JSON.stringify($stateParams));
+      controller: function($scope, $stateParams, Blockserver, Metaserver, metadata, metadataList) {
+        console.log("in controller");
+        var blockserverKey,
+            index,
+            i,
+            metadataBeforeCurrentMetadata,
+            metadataAfterCurrentMetadata;
+
         $scope.metadata = metadata;
-        console.log("metadata: " + JSON.stringify($scope.metadata));
+        $scope.metadataList = metadataList;
 
         blockserverKey = $scope.metadata.blockserverKey;
-        console.log("blockserverKey: " + blockserverKey);
 
         $scope.imagePathOrDocumentContents = Blockserver.getByKey(blockserverKey);
-        console.log("contents: " + JSON.stringify($scope.imagePathOrDocumentContents));
+
+        $scope.prevImage = undefined;
+        $scope.nextImage = undefined;
+
+        for (index = 0; index < metadataList.length; index++) {
+          if (metadataList[index].name == metadata.name) {
+            // we've found the currently displayed metadata in the list
+            break;
+          }
+        }
+        // set prevImage, if there is one, by walking backwards
+        metadataBeforeCurrentMetadata = metadataList.slice(0, index);
+        for (i = metadataBeforeCurrentMetadata.length - 1; i >= 0; i--) {
+          if (metadataBeforeCurrentMetadata[i].kind == 'image') {
+            $scope.prevImage = metadataBeforeCurrentMetadata[i];
+            break;
+          }
+        }
+
+        // set nextImage, if there is one, by walking forwards
+        metadataAfterCurrentMetadata = metadataList.slice(index + 1, metadataList.length);
+        for (i = 0; i < metadataAfterCurrentMetadata.length; i++) {
+          if (metadataAfterCurrentMetadata[i].kind == 'image') {
+            $scope.nextImage = metadataAfterCurrentMetadata[i];
+            break;
+          }
+        }
       }
     });
 });
 
 myApp.factory("Metaserver", function($http, $timeout, $q) {
-  console.log("metaserver");
   var defer, fileList, fileIndex;
   function getList() {
-    console.log("getList (in metaserver)");
+    if (defer && defer.promise) {
+      return defer.promise; // return cached result
+    }
     defer = $q.defer()
 
     $timeout(function() {
-      console.log("timeout completed");
       defer.resolve($http.get("static/data/metaserver.json"));
     }, Math.random()*DELAY);
     return defer.promise;
   }
   return {
     getByName: function(name) {
-      console.log("getByName(" + name + ")");
       var defer = $q.defer()
       getList().then(function(results) {
         fileList = results.data.files;
         for (fileIndex = 0; fileIndex < fileList.length; fileIndex++) {
           if (fileList[fileIndex].name == name) {
-            console.log("resolving to " + JSON.stringify(fileList[fileIndex]));
             defer.resolve(fileList[fileIndex]);
             break;
           }
@@ -110,7 +150,6 @@ myApp.factory("Metaserver", function($http, $timeout, $q) {
       return defer.promise;
     },
     getList: function() {
-      console.log("getList()");
       var defer = $q.defer()
       getList().then(function(results) {
         defer.resolve(results.data.files);
@@ -123,14 +162,11 @@ myApp.factory("Metaserver", function($http, $timeout, $q) {
 myApp.factory("Blockserver", function($http, $timeout, $q) {
   return {
     getByKey: function(blockserverKey) {
-      console.log("getByKey(" + blockserverKey + ")");
       var defer = $q.defer()
 
       $timeout(function() {
         $http.get("static/data/blockserver.json").then(function(results) {
-          console.log("results.data: " + JSON.stringify(results.data));
           if (blockserverKey in results.data) {
-            console.log("blockserverKey in results, it's " + JSON.stringify(results.data[blockserverKey]));
             defer.resolve(results.data[blockserverKey]);
           }
           // implement error checking here and in getByName later

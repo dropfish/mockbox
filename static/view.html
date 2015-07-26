@@ -1,13 +1,42 @@
 <div class="view">
 	<div class="view__header">
 		<img ng-if="metadata.kind == 'document'" ng-src="static/images/document_icon.png" class="icon icon--view" />
-		<img ng-if="metadata.kind == 'image'" ng-src="{{metadata.thumbnail}}" class="icon icon--view" />
+		<img ng-if="metadata.kind == 'image'" ng-src="static/images/image_icon.png" class="icon icon--view" />
 		<span class="view__title">
 			{{metadata.name}}
 		</span>
-		<h3>View (view.html)</h3>
-		{{metadata}}
-		<br>
-		Path or contents: {{imagePathOrDocumentContents}}
+		<span class="view__header__button-container">
+			<a ui-sref="list" class="close">
+				<span class="close__text">
+					&#10005;
+				</span>
+			</a>
+			<button class="button--secondary">Open</button>
+			<button class="button--primary">Share</button>
+		</span>
+	</div>
+	<div class="view__body">
+		<div class="view__body__column view__body__column--left">
+			<div ng-if="metadata.kind == 'document'" ng-bind-html="imagePathOrDocumentContents" class="view__body__column__view--text">
+			</div>
+			<div ng-if="metadata.kind == 'image'" class="view__body__column__view--image">
+				<span ng-if="prevImage" class="direction-caret-container direction-caret-container--left">
+					<span class="direction-caret">
+						<a ui-sref="view({filename:prevImage.name, metadata:prevImage, metadataList: metadataList})">&lt;</a>
+					</span>
+				</span>
+				<!-- Empty span required to center image vertically -->
+				<span class="view__body__column__view--image__helper"></span>
+				<img ng-src="{{imagePathOrDocumentContents}}" class="view__body__column__view--image__image" />
+				<span ng-if="nextImage" class="direction-caret-container direction-caret-container--right">
+					<span class="direction-caret">
+						<a ui-sref="view({filename:nextImage.name, metadata:nextImage, metadataList: metadataList})">&gt;</a>
+					</span>
+				</span>
+			</div>
+		</div>
+		<div class="view__body__column view__body__column--right">
+			this is where comments will go
+		</div>
 	</div>
 </div>

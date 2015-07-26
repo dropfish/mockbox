@@ -14,7 +14,7 @@
 	</div>
 	<div class="column--right__files">
 		<table>
-			<tr style='text-align:left;'>
+			<tr>
 				<th>
 					<a href ng-click="changeSort('name')">
 						Name
@@ -63,7 +63,7 @@
 						<img ng-src="{{metadata.thumbnail}}" class="icon icon--list" />
 					</span>
 					<span class="title-text">
-						<a ui-sref="view({filename:metadata.name, metadata:metadata})">
+						<a ui-sref="view({filename:metadata.name, metadata:metadata, metadataList: metadataList})">
 							{{metadata.name}}
 						</a>
 					</span>
@@ -75,7 +75,7 @@
 					{{metadata.kind}}
 				</td>
 				<td>
-					<button ng-show="hoveredFile.name == metadata.name || selectedFile.name == metadata.name" class="share-button">Share</button>
+					<button ng-show="hoveredFile.name == metadata.name || selectedFile.name == metadata.name" class="button--secondary">Share</button>
 				</td>
 			</tr>
 		</table>
