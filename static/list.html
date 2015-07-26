@@ -57,10 +57,10 @@
 				ng-mouseenter="setHovered(metadata)" ng-mouseleave="resetHovered()">
 				<td>
 					<span ng-if="metadata.kind == 'document'">
-						<img ng-src="static/images/document_icon.png" class="icon" />
+						<img ng-src="static/images/document_icon.png" class="icon icon--list" />
 					</span>
 					<span ng-if="metadata.kind == 'image'">
-						<img ng-src="{{metadata.thumbnail}}" class="icon" />
+						<img ng-src="{{metadata.thumbnail}}" class="icon icon--list" />
 					</span>
 					<span class="title-text">
 						<a ui-sref="view({filename:metadata.name, metadata:metadata})">

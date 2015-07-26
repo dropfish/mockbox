@@ -1,8 +1,13 @@
-<div class="full-screen">
-
-	<h3>View (view.html)</h3>
-	{{filename}}
-	<br>
-	Path or contents: {{imagePathOrDocumentContents}}
-
+<div class="view">
+	<div class="view__header">
+		<img ng-if="metadata.kind == 'document'" ng-src="static/images/document_icon.png" class="icon icon--view" />
+		<img ng-if="metadata.kind == 'image'" ng-src="{{metadata.thumbnail}}" class="icon icon--view" />
+		<span class="view__title">
+			{{metadata.name}}
+		</span>
+		<h3>View (view.html)</h3>
+		{{metadata}}
+		<br>
+		Path or contents: {{imagePathOrDocumentContents}}
+	</div>
 </div>

@@ -10,6 +10,7 @@ body {
 	font-size: 14px;
 }
 
+/* list.html */
 .column--left {
 	margin-left:10%;
 	float:left;
@@ -58,12 +59,6 @@ body {
 .logo {
 	width: 55px;
 	height: 55px;
-}
-
-.full-screen {
-	height: 100%;
-	width: 100%;
-	overflow: hidden;
 }
 
 a:link {
@@ -131,6 +126,9 @@ a:active {
 	max-width: 32px;
 	height: 32px;
 	vertical-align:middle;
+}
+
+.icon--list {
 	margin-left: 5px;
 	margin-right: 5px;
 }
@@ -138,3 +136,29 @@ a:active {
 .title-text {
 	margin-left: 10px;
 }
+
+/* view.html */
+.view {
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+
+.view__header {
+	position:fixed;
+  	top: 0;
+   	left: 0;
+	width: 100%;
+	height: 50px;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.icon--view {
+	margin-left: 10px;
+}
+
+.view__title {
+	padding-left: 10px;
+	line-height: 50px;
+}
+
