@@ -12,14 +12,14 @@
       "kind": "image",
       "blockserverKey": "puppy.png",
       "modified": "1437873184040",
-      "thumbnail": "/static/images/puppy.png"
+      "thumbnail": "static/images/puppy.png"
     },
     {
       "name": "turtle.png",
       "kind": "image",
       "blockserverKey": "turtle.png",
       "modified": "1437876214009",
-      "thumbnail": "/static/images/turtle.png"
+      "thumbnail": "static/images/turtle.png"
     }
   ]
 }
