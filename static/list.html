@@ -1,9 +1,83 @@
-<h1>List (list.html)</h1>
-<hr/>
-<div>
-	<ul>
-		<li ng-repeat="file in files">
-			<a ui-sref="view({filename:file.filename})">{{file.filename}}</a>
-		</li>
-	</ul>
+<div class="column column--left">
+	<div class="column--left__link-container">
+		<a ui-sref="list">
+			<img ng-src="static/images/dropbox_logo.png" class="logo"/>
+		</a>
+	</div>
+</div>
+
+<div class="column column--right">
+	<div class="column--right__header">
+		<p>
+			Personal
+		</p>
+	</div>
+	<div class="column--right__files">
+		<table>
+			<tr style='text-align:left;'>
+				<th>
+					<a href ng-click="changeSort('name')">
+						Name
+						<span ng-show="sortType == 'name' && !sortReverse">
+							&#9650;
+						</span>
+						<span ng-show="sortType == 'name' && sortReverse">
+							&#9660;
+						</span>
+					</a>
+				</th>
+				<th>
+					<a href ng-click="changeSort('modified')">
+						Modified
+						<span ng-show="sortType == 'modified' && !sortReverse">
+							&#9650;
+						</span>
+						<span ng-show="sortType == 'modified' && sortReverse">
+							&#9660;
+						</span>
+					</a>
+				</th>
+				<th>
+					<a href ng-click="changeSort('kind')">
+						Kind
+						<span ng-show="sortType == 'kind' && !sortReverse">
+							&#9650;
+						</span>
+						<span ng-show="sortType == 'kind' && sortReverse">
+							&#9660;
+						</span>
+					</a>
+				</th>
+				<th>
+				</th>
+			</tr>
+			<tr ng-repeat="metadata in metadataList | orderBy:sortType:sortReverse"
+				ng-class="selectedFile.name == metadata.name ? 'column--right__files__file--selected' : 'column--right__files__file--unselected'"
+				ng-click="setSelected(metadata)"
+				ng-mouseenter="setHovered(metadata)" ng-mouseleave="resetHovered()">
+				<td>
+					<span ng-if="metadata.kind == 'document'">
+						<img ng-src="static/images/document_icon.png" class="icon" />
+					</span>
+					<span ng-if="metadata.kind == 'image'">
+						<img ng-src="{{metadata.thumbnail}}" class="icon" />
+					</span>
+					<span class="title-text">
+						<a ui-sref="view({filename:metadata.name, metadata:metadata})">
+							{{metadata.name}}
+						</a>
+					</span>
+				</td>
+				<td>
+					{{metadata.modified | date:'short'}}
+				</td>
+				<td>
+					{{metadata.kind}}
+				</td>
+				<td>
+					<button ng-show="hoveredFile.name == metadata.name || selectedFile.name == metadata.name" class="share-button">Share</button>
+				</td>
+			</tr>
+		</table>
+	</div>
 </div>

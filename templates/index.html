@@ -1,21 +1,15 @@
 <!DOCTYPE html>
 <html ng-app="myApp">
-<head>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
-<script src="static/js/app.js"></script>
-<title>Mockbox, an incredible project</title>
-</head>
+    <head>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
+        <script src="static/js/app.js"></script>
+        <link href="static/css/style.css" rel="stylesheet">
+        <title>Mockbox, an incredible project</title>
+    </head>
 
-<body>
-	<div>
-    <ui-view>
-      Main page (index.html)
-      <img src="static/animations/loading.gif" />
-    </ui-view>
-  </div>
-    <!-- We'll also add some navigation: -->
-    <a ui-sref="list">List</a>
-</body>
+    <body ui-view>
+    
+    </body>
 
 </html>

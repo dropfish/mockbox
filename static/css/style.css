@@ -1,0 +1,140 @@
+body {
+	font-family: "Open Sans",
+				"lucida grande",
+				"Segoe UI",
+				arial,
+				verdana,
+				"lucida sans unicode",
+				tahoma,
+				sans-serif;
+	font-size: 14px;
+}
+
+.column--left {
+	margin-left:10%;
+	float:left;
+	width:15%;
+}
+
+.column--right {
+	margin-right:10%;
+	float:left;
+	width:65%;
+}
+
+.column--left__link-container {
+	margin-top: 45px;
+}
+
+.column--right__header {
+	margin-top: 60px;
+	margin-bottom: 45px;
+}
+
+.column--right__header p {
+	font-size: 20px;
+}
+
+.column--right__files table {
+	width: 100%;
+	border-collapse: collapse;
+	table-layout:fixed;
+}
+
+.column--right__files th {
+	text-align: left;
+	font-weight: normal;
+	border-bottom: 2px solid #e5e5e5;
+	padding-bottom: 10px;
+}
+
+.column--right__files td {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.logo {
+	width: 55px;
+	height: 55px;
+}
+
+.full-screen {
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+
+a:link {
+    text-decoration: none;
+    color: #000000;
+}
+
+a:visited {
+    text-decoration: none;
+    color: #000000;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:active {
+    text-decoration: underline;
+}
+
+.column--right__files th a:link {
+    text-decoration: none;
+    color: #7b8994;
+}
+
+.column--right__files th a:visited {
+    text-decoration: none;
+    color: #7b8994;
+}
+
+.column--right__files th a:hover {
+    text-decoration: underline;
+}
+
+.column--right__files th a:active {
+    text-decoration: underline;
+}
+
+.column--right__files__file--unselected:hover {
+	background-color: #e3f2ff;
+}
+
+.column--right__files__file--selected {
+	background-color: #95CEFE;
+}
+
+.share-button {
+	margin-right: 10px;
+	padding: 7px 15px;
+	border-radius: 5px;
+	float:right;
+	background-color: white;
+	outline: 0;
+	border: 1.5px solid #007ee5;
+	color: #007ee5;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+.share-button:active {
+	background-color: #e3f2ff;
+}
+
+.icon {
+	max-width: 32px;
+	height: 32px;
+	vertical-align:middle;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.title-text {
+	margin-left: 10px;
+}
