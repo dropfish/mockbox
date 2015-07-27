@@ -20,6 +20,20 @@
       "blockserverKey": "turtle.png",
       "modified": "1437876214009",
       "thumbnail": "static/images/turtle.png"
+    },
+    {
+      "name": "planetoid.png",
+      "kind": "image",
+      "blockserverKey": "planetoid.png",
+      "modified": "1437876113024",
+      "thumbnail": "static/images/planetoid.png"
+    },
+    {
+      "name": "heaven.png",
+      "kind": "image",
+      "blockserverKey": "heaven.png",
+      "modified": "1431871113024",
+      "thumbnail": "static/images/heaven.png"
     }
   ]
 }

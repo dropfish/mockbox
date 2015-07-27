@@ -1,22 +1,20 @@
-<div class="column column--left">
-	<div class="column--left__link-container">
+<div class="links-column">
+	<div class="links-column__container">
 		<a ui-sref="list">
-			<img ng-src="static/images/dropbox_logo.png" class="logo"/>
+			<img ng-src="static/images/dropbox_logo.png" class="dropbox-logo"/>
 		</a>
 	</div>
 </div>
 
-<div class="column column--right">
-	<div class="column--right__header">
-		<p>
-			Personal
-		</p>
+<div class="list-column">
+	<div class="list-column__header">
+		Personal
 	</div>
-	<div class="column--right__files">
+	<div class="list-column__files">
 		<table>
 			<tr>
 				<th>
-					<a href ng-click="changeSort('name')">
+					<a href ng-click="setSort('name')">
 						Name
 						<span ng-show="sortType == 'name' && !sortReverse">
 							&#9650;
@@ -27,7 +25,7 @@
 					</a>
 				</th>
 				<th>
-					<a href ng-click="changeSort('modified')">
+					<a href ng-click="setSort('modified')">
 						Modified
 						<span ng-show="sortType == 'modified' && !sortReverse">
 							&#9650;
@@ -38,21 +36,14 @@
 					</a>
 				</th>
 				<th>
-					<a href ng-click="changeSort('kind')">
-						Kind
-						<span ng-show="sortType == 'kind' && !sortReverse">
-							&#9650;
-						</span>
-						<span ng-show="sortType == 'kind' && sortReverse">
-							&#9660;
-						</span>
-					</a>
+					Kind
 				</th>
+				<!-- empty th for share button (without it, the border is wrong) -->
 				<th>
 				</th>
 			</tr>
 			<tr ng-repeat="metadata in metadataList | orderBy:sortType:sortReverse"
-				ng-class="selectedFile.name == metadata.name ? 'column--right__files__file--selected' : 'column--right__files__file--unselected'"
+				ng-class="selectedFile.name == metadata.name ? 'list-column__files__selected-file' : 'list-column__files__unselected-file'"
 				ng-click="setSelected(metadata)"
 				ng-mouseenter="setHovered(metadata)" ng-mouseleave="resetHovered()">
 				<td>
