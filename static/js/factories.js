@@ -48,10 +48,6 @@ myApp.factory("Blockserver", function($http, $timeout, $q) {
 			    	if (blockserverKey in results.data) {
 			        	defer.resolve(results.data[blockserverKey]);
 			      	}
-					else {
-						console.log("500");
-						defer.resolve("500");
-					}
 		    	});
 			}, Math.random() * DELAY);
 			return defer.promise;
